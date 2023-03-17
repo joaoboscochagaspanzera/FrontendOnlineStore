@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
   constructor() {
@@ -14,6 +15,9 @@ class Home extends React.Component {
     const isEmpty = productsList.length === 0;
     return (
       <div>
+        <Link data-testid="shopping-cart-button" to="/shopping-cart">
+          Carrinho de compras
+        </Link>
         {isEmpty
           && (
             <p
