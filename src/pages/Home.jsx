@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import RenderizeProduct from '../components/RenderizeProduct';
 
 class Home extends React.Component {
   constructor() {
@@ -61,13 +62,10 @@ class Home extends React.Component {
           !isEmpty
             ? (
               <section className="product-list">
-                {productsList.map((product) => (
-                  <section data-testid="product" key={ product.id }>
-                    <p>{product.title}</p>
-                    <p>{`$${product.price}`}</p>
-                    <img src={ product.thumbnail } alt={ product.title } />
-                  </section>
-                ))}
+                {productsList.map((product) => (<RenderizeProduct
+                  product={ product }
+                  key={ product.id }
+                />))}
               </section>
             )
             : <p>Nenhum produto foi encontrado</p>
