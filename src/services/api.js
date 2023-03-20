@@ -15,4 +15,5 @@ export async function getProductById(categoryId) {
   const response = await data.json();
   return response;
   // Atenção: essa função não deverá ser chamada na tela do carrinho de compras.
+  // aa
 }
