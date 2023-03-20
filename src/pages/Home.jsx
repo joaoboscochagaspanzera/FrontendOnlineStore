@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import Categories from '../components/Categories';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
   constructor() {
@@ -8,19 +9,9 @@ class Home extends React.Component {
 
     this.state = {
       productsList: [],
-      categories: [],
       productSearchInput: '',
     };
   }
-
-  componentDidMount() {
-    this.fetchCategoryApi();
-  }
-
-  fetchCategoryApi = async () => {
-    const response = await getCategories();
-    this.setState({ categories: [...response] });
-  };
 
   handleProductSearch = async (productSearchInput) => {
     const response = await getProductsFromCategoryAndQuery(productSearchInput);
@@ -33,7 +24,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { productsList, categories, productSearchInput } = this.state;
+    const { productsList, productSearchInput } = this.state;
     const isEmpty = productsList.length === 0;
     return (
       <div>
@@ -65,23 +56,7 @@ class Home extends React.Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
           )}
-        <section className="categories">
-          {categories.map((category) => (
-            <label
-              htmlFor={ category.id }
-              key={ category.id }
-              data-testid="category"
-            >
-              {category.name}
-              <input
-                type="radio"
-                name="categories"
-                id={ category.id }
-                value={ category.id }
-              />
-            </label>
-          ))}
-        </section>
+        <Categories />
         {
           !isEmpty
             ? (
