@@ -52,6 +52,7 @@ class Categories extends React.Component {
         {products.map((product) => (<RenderizeProduct
           product={ product }
           key={ product.id }
+          id={ product.id }
         />))}
         <section />
       </>
