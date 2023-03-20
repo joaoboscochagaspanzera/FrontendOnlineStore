@@ -1,5 +1,6 @@
 import React from 'react';
-import { getCategories } from '../services/api';
+import { getCategories, getProductById } from '../services/api';
+import RenderizeProduct from './RenderizeProduct';
 
 class Categories extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class Categories extends React.Component {
 
     this.state = {
       categories: [],
+      products: [],
     };
   }
 
@@ -19,26 +21,40 @@ class Categories extends React.Component {
     this.setState({ categories: [...response] });
   };
 
+  handleSearchByCategoryId = async ({ target }) => {
+    const { value } = target;
+    const response = await getProductById(value);
+    this.setState({ products: [...response.results] });
+  };
+
   render() {
-    const { categories } = this.state;
+    const { categories, products } = this.state;
     return (
-      <section className="categories">
-        {categories.map((category) => (
-          <label
-            htmlFor={ category.id }
-            key={ category.id }
-            data-testid="category"
-          >
-            {category.name}
-            <input
-              type="radio"
-              name="categories"
-              id={ category.id }
-              value={ category.id }
-            />
-          </label>
-        ))}
-      </section>
+      <>
+        <section className="categories">
+          {categories.map((category) => (
+            <label
+              htmlFor={ category.id }
+              key={ category.id }
+              data-testid="category"
+            >
+              {category.name}
+              <input
+                type="radio"
+                name="categories"
+                id={ category.id }
+                value={ category.id }
+                onClick={ this.handleSearchByCategoryId }
+              />
+            </label>
+          ))}
+        </section>
+        {products.map((product) => (<RenderizeProduct
+          product={ product }
+          key={ product.id }
+        />))}
+        <section />
+      </>
     );
   }
 }
