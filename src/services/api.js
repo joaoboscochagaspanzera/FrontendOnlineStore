@@ -17,3 +17,9 @@ export async function getProductById(categoryId) {
   // Atenção: essa função não deverá ser chamada na tela do carrinho de compras.
   // aa
 }
+
+export async function getProductDetailsById(productId) {
+  const data = await fetch(`https://api.mercadolibre.com/items/${productId}`);
+  const response = await data.json();
+  return response;
+}

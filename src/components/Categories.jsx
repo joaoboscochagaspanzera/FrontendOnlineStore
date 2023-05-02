@@ -1,6 +1,6 @@
 import React from 'react';
-import { getCategories, getProductById } from '../services/api';
-import RenderizeProduct from './RenderizeProduct';
+import PropTypes from 'prop-types';
+import { getCategories } from '../services/api';
 
 class Categories extends React.Component {
   constructor(props) {
@@ -8,7 +8,6 @@ class Categories extends React.Component {
 
     this.state = {
       categories: [],
-      products: [],
     };
   }
 
@@ -21,43 +20,34 @@ class Categories extends React.Component {
     this.setState({ categories: [...response] });
   };
 
-  handleSearchByCategoryId = async ({ target }) => {
-    const { value } = target;
-    const response = await getProductById(value);
-    this.setState({ products: [...response.results] });
-  };
-
   render() {
-    const { categories, products } = this.state;
+    const { categories } = this.state;
+    const { handleClick } = this.props;
     return (
-      <>
-        <section className="categories">
-          {categories.map((category) => (
-            <label
-              htmlFor={ category.id }
-              key={ category.id }
-              data-testid="category"
-            >
-              {category.name}
-              <input
-                type="radio"
-                name="categories"
-                id={ category.id }
-                value={ category.id }
-                onClick={ this.handleSearchByCategoryId }
-              />
-            </label>
-          ))}
-        </section>
-        {products.map((product) => (<RenderizeProduct
-          product={ product }
-          key={ product.id }
-          id={ product.id }
-        />))}
-        <section />
-      </>
+      <section className="categories">
+        {categories.map((category) => (
+          <label
+            htmlFor={ category.id }
+            key={ category.id }
+            data-testid="category"
+          >
+            {category.name}
+            <input
+              type="radio"
+              name="categories"
+              id={ category.id }
+              value={ category.id }
+              onClick={ handleClick }
+            />
+          </label>
+        ))}
+      </section>
     );
   }
 }
+
+Categories.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default Categories;

@@ -1,0 +1,31 @@
+.shopping-cart-page {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.shopping-cart-page .shopping-cart-product {
+  background-color: cyan;
+  border: 1px solid darkcyan;
+  width: 400px;
+}
+
+.shopping-cart-page button {
+  margin: 0 8px;
+  width: 32px;
+}
+
+.shopping-cart-page .product-increase-quantity {
+  background-color: yellowgreen;
+}
+
+.shopping-cart-page .product-decrease-quantity {
+  background-color: rgb(255, 189, 189);
+}
+
+.shopping-cart-page .remove-product {
+  background-color: red;
+  color: white;
+  float: right;
+  width: 80px;
+}
